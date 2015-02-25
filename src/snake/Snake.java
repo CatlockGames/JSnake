@@ -61,7 +61,7 @@ public class Snake {
 				}
 			}
 			//Checks collision witb wall
-			if(snake.get(0).getX() < 0 || snake.get(0).getX() > Grid.WIDTH || snake.get(0).getY() < 0 || snake.get(0).getY() > Grid.HEIGHT){
+			if(snake.get(0).getX() < 0 || snake.get(0).getX() >= Grid.WIDTH || snake.get(0).getY() < 0 || snake.get(0).getY() >= Grid.HEIGHT){
 				System.exit(0);
 			}
 			//Checks collision with segments
