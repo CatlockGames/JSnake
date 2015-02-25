@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	//Properties
 	public static final String TITLE = "Snake";
 	public static final double VERSION = 1.0;
+	private boolean debug = false;
 		
 	//Image
 	private BufferedImage image;
@@ -34,8 +35,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	//Thread
 	private Thread thread;
 	private boolean running;
-	private int FPS = 60;
-	private long targetTime = 1000 / FPS;
+	private int TargetFPS = 60;	
+	private int FPS;
+	private long targetTime = 1000 / TargetFPS;
 	
 	private Grid grid = new Grid();
 
@@ -77,6 +79,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, WIDTH, HEIGHT);
 		
+		//Render the debug menu
+		if(debug){
+			g2d.setColor(Color.WHITE);
+			g2d.drawString("fps:" + FPS, 5, 15);
+		}
+		
 		//Render the grid
 		grid.render(g2d);
 	}
@@ -101,12 +109,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		//Game loop
 		while(running){
 			start = System.nanoTime();
+			
 			update();
 			render();
 			renderToScreen();
 			
 			elapsed = System.nanoTime() - start;
 			delay = targetTime - elapsed / 1000000;
+			FPS = (int) (1000000000 / elapsed);
+			
 			if(delay < 0){
 				delay = 0;
 			}
@@ -137,6 +148,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		//Debugging Menu
 		if(e.getKeyCode() == KeyEvent.VK_BACK_QUOTE){
+			if(debug){
+				debug = false;
+			} else{
+				debug = true;
+			}
 		}
 		//Quit
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
