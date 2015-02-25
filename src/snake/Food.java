@@ -63,7 +63,7 @@ public class Food {
 	public void regen(){
 		x = random.nextInt(Grid.WIDTH);
 		y = random.nextInt(Grid.HEIGHT);
-		animation = animations[random.nextInt(animations.length - 1)];
+		animation = animations[random.nextInt(animations.length)];
 	}
 	
 	/**
