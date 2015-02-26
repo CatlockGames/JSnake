@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 
 /**
  * @author Aaron
+ * @author Ryan
  *
  */
 public class Grid {
@@ -19,20 +20,11 @@ public class Grid {
 	private Food food = new Food();
 	
 	private int score;
-	
-	//private BufferedImage background;
 
 	/**
 	 * 
 	 */
 	public Grid() {
-		/*
-		try {
-			background = ImageIO.read(this.getClass().getResource("/background.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
 	}
 	
 	/**
@@ -61,7 +53,6 @@ public class Grid {
 	 */
 	public void render(Graphics2D g2d){
 		//Render the background
-		//g2d.drawImage(background, 0, 0, null);
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		//Render the snake

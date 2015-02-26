@@ -9,6 +9,7 @@ import java.util.Random;
 
 /**
  * @author Aaron
+ * @author Ryan
  *
  */
 public class Food {
@@ -17,7 +18,7 @@ public class Food {
 	
 	private Random random = new Random();
 	
-	private Sprite sprites = new Sprite("/fruit.png", 16, 16);
+	private Sprite sprites = new Sprite("/images/fruit.png", 16, 16);
 	private BufferedImage[] fruits = {
 			sprites.getSprite(0, 0), //Pear
 			sprites.getSprite(1, 0), //Strawberry
@@ -40,7 +41,7 @@ public class Food {
 	}
 	
 	/**
-	 * 
+	 * This method renders to the double buffered image
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d){
@@ -48,7 +49,7 @@ public class Food {
 	}
 	
 	/**
-	 * This method regenerates a new random food.
+	 * This method regenerates a new random food
 	 */
 	public void regen(){
 		x = random.nextInt(Grid.WIDTH);

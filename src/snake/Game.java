@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 /**
  * @author Aaron
+ * @author Ryan
  *
  */
 public class Game {

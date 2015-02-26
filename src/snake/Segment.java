@@ -3,35 +3,41 @@
  */
 package snake;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /**
  * @author Aaron
+ * @author Ryan
  *
  */
 public class Segment {
 	private int x;
 	private int y;
 	
-	private char direction;
+	/*
+	 * Up = 0
+	 * Right = 1
+	 * Down = 2
+	 * Left = 3
+	 */
+	private int direction;
 
 	/**
 	 * 
 	 */
-	public Segment(int x, int y, char direction) {
+	public Segment(int x, int y, int direction) {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
 	}
 	
 	/**
-	 * 
+	 * This method renders to the double buffered image
 	 * @param g2d
 	 */
-	public void render(Graphics2D g2d){
-		g2d.setColor(Color.GREEN);
-		g2d.fillRect(x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), GamePanel.WIDTH / Grid.WIDTH, GamePanel.HEIGHT / Grid.HEIGHT);
+	public void render(Graphics2D g2d, BufferedImage image){
+		g2d.drawImage(image, x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), null);
 	}
 	
 	/**
@@ -54,7 +60,7 @@ public class Segment {
 	 * 
 	 * @return
 	 */
-	public char getDirection(){
+	public int getDirection(){
 		return direction;
 	}
 	
@@ -78,7 +84,7 @@ public class Segment {
 	 * 
 	 * @param direction
 	 */
-	public void setDirection(char direction){
+	public void setDirection(int direction){
 		this.direction = direction;
 	}
 	

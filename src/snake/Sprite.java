@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
+ * @author Aaron
  * @author Ryan
  *
  */
@@ -29,7 +30,7 @@ public class Sprite {
 	}
 	
 	/**
-	 * 
+	 * This method loads the sprite sheet
 	 * @return
 	 */
 	private BufferedImage loadSpriteSheet(){
@@ -42,7 +43,7 @@ public class Sprite {
 	}
 	
 	/**
-	 * 
+	 * This method gets a sprite from the sprite sheet
 	 * @param x
 	 * @param y
 	 * @return

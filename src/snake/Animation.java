@@ -6,6 +6,7 @@ package snake;
 import java.awt.image.BufferedImage;
 
 /**
+ * @author Aaron
  * @author Ryan
  *
  */
@@ -32,7 +33,7 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method starts the animation
 	 */
 	public void start(){
 		timeSinceLastFrame = System.currentTimeMillis();
@@ -40,14 +41,14 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method stops the animation
 	 */
 	public void stop(){
 		running = false;
 	}
 	
 	/**
-	 * 
+	 * This method restarts the animation
 	 */
 	public void restart(){
 		currentFrame = 0;
@@ -56,7 +57,7 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method resets the animation
 	 */
 	public void reset(){
 		currentFrame = 0;
@@ -66,7 +67,7 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method loops the animation
 	 */
 	public void loop(){
 		loop = true;
@@ -74,7 +75,7 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method updates the animation
 	 */
 	public void update(){
 		if(running){
@@ -95,7 +96,7 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method gets the current frame of the animation
 	 * @return
 	 */
 	public BufferedImage getSprite(){
@@ -103,7 +104,7 @@ public class Animation {
 	}
 	
 	/**
-	 * 
+	 * This method gets if the animation is done
 	 * @return
 	 */
 	public boolean done(){

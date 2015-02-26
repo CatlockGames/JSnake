@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 /**
  * @author Aaron
+ * @author Ryan
  *
  */
 @SuppressWarnings("serial")
@@ -156,16 +157,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			System.exit(0);
 		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-			grid.getSnake().setHeadDirectionRequest('r');
+			grid.getSnake().setHeadDirectionRequest(1);
 		}
 		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-			grid.getSnake().setHeadDirectionRequest('l');
+			grid.getSnake().setHeadDirectionRequest(3);
 		}
 		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-			grid.getSnake().setHeadDirectionRequest('u');
+			grid.getSnake().setHeadDirectionRequest(0);
 		}
 		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-			grid.getSnake().setHeadDirectionRequest('d');
+			grid.getSnake().setHeadDirectionRequest(2);
 		}
 	}
 
