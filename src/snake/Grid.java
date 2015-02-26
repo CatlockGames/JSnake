@@ -5,10 +5,6 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 /**
  * @author Aaron
@@ -24,17 +20,19 @@ public class Grid {
 	
 	private int score;
 	
-	private BufferedImage background;
+	//private BufferedImage background;
 
 	/**
 	 * 
 	 */
 	public Grid() {
+		/*
 		try {
 			background = ImageIO.read(this.getClass().getResource("/background.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	/**
@@ -63,7 +61,9 @@ public class Grid {
 	 */
 	public void render(Graphics2D g2d){
 		//Render the background
-		g2d.drawImage(background, 0, 0, null);
+		//g2d.drawImage(background, 0, 0, null);
+		g2d.setColor(Color.BLACK);
+		g2d.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		//Render the snake
 		snake.render(g2d);
 		//Render the food
