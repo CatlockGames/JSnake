@@ -15,7 +15,6 @@ public class Animation {
 	private int currentFrame;
 	private long timeSinceLastFrame;
 	private boolean running;
-	private boolean done;
 	private boolean loop;
 	private BufferedImage[] frames;
 	
@@ -27,7 +26,6 @@ public class Animation {
 		this.currentFrame = 0;
 		this.timeSinceLastFrame = System.currentTimeMillis();
 		this.running = false;
-		this.done = false;
 		this.loop = false;
 		this.frames = frames;
 	}
@@ -52,7 +50,6 @@ public class Animation {
 	 */
 	public void restart(){
 		currentFrame = 0;
-		done = false;
 		start();
 	}
 	
@@ -61,7 +58,6 @@ public class Animation {
 	 */
 	public void reset(){
 		currentFrame = 0;
-		done = false;
 		loop = false;
 		stop();
 	}
@@ -88,7 +84,8 @@ public class Animation {
 						currentFrame = 0;
 					}
 				}else if(currentFrame > frames.length - 1){
-					done = true;
+					currentFrame = frames.length - 1;
+					running = false;
 					stop();
 				}
 			}
@@ -108,6 +105,6 @@ public class Animation {
 	 * @return
 	 */
 	public boolean done(){
-		return done;
+		return !running;
 	}
 }

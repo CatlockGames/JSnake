@@ -6,6 +6,7 @@ package snake;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author Aaron
@@ -15,6 +16,10 @@ import java.util.ArrayList;
 public class Snake {
 	//Segments
 	private ArrayList<Segment> snake = new ArrayList<Segment>();
+	
+	private ArrayList<Poop> poops = new ArrayList<Poop>();
+	private int chanceToPoop = 0;
+	private Random random = new Random();
 	
 	//Timing
 	private long timeSinceLastMove = System.currentTimeMillis();
@@ -69,6 +74,19 @@ public class Snake {
 	 * 
 	 */
 	public void update(){
+		//Check poop collision
+		for(int i = 0; i < poops.size(); i++){
+			if(snake.get(0).getX() == poops.get(i).getX() && snake.get(0).getY() == poops.get(i).getY()){
+				System.exit(0);
+			}
+		}
+		//Update poop
+		for(int i = 0; i < poops.size(); i++){
+			poops.get(i).update();
+			if(poops.get(i).done()){
+				poops.remove(i);
+			}
+		}
 		//Snake moves at certain time intervals
 		if(System.currentTimeMillis() - timeSinceLastMove > timeInterval){
 			for(int i = snake.size() - 1; i > 0; i--){ //Sets the directions
@@ -110,6 +128,10 @@ public class Snake {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d){
+		//Render poop
+		for(int i = 0; i < poops.size(); i++){
+			poops.get(i).render(g2d);
+		}
 		//Render the head
 		snake.get(0).render(g2d, heads[snake.get(0).getDirection()]);
 		//Render the body
@@ -158,6 +180,13 @@ public class Snake {
 		if(food.getX() == snake.get(0).getX() && food.getY() == snake.get(0).getY()){
 			addSegment(3);
 			food.regen();
+			
+			if(random.nextInt(99) + 1 <= chanceToPoop){
+				poops.add(new Poop(snake.get(snake.size() - 1).getX(), snake.get(snake.size() - 1).getY()));
+				chanceToPoop = 0;
+			}else{
+				chanceToPoop += 25;
+			}
 		}
 	}
 	
