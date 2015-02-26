@@ -23,7 +23,7 @@ public class Snake {
 	
 	//Timing
 	private long timeSinceLastMove = System.currentTimeMillis();
-	private long timeInterval = 75;
+	private long timeInterval = 50;
 	
 	private boolean headDirectionRequested = false;
 	private int requestedHeadDirection;

@@ -24,12 +24,19 @@ public class Sound {
 	 */
 	public Sound(String fileName) {
 		this.fileName = fileName;
+		loadSound();
 	}
 	
 	/**
 	 * This method plays the sound
 	 */
 	public void play(){
+		if(clip.getFramePosition() == clip.getFrameLength()){
+			clip.stop();
+			clip.close();
+			System.out.println("Clip closed");
+		}
+		
 		loadSound();
 		clip.setFramePosition(0);
 		clip.start();
