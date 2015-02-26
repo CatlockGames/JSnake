@@ -18,29 +18,19 @@ public class Food {
 	private Random random = new Random();
 	
 	private Sprite sprites = new Sprite("/fruit.png", 16, 16);
-	private BufferedImage[] pearFrames = {sprites.getSprite(0, 0)};
-	private BufferedImage[] strawberryFrames = {sprites.getSprite(1, 0)};
-	private BufferedImage[] orangeFrames = {sprites.getSprite(2, 0)};
-	private BufferedImage[] cherryFrames = {sprites.getSprite(0, 1)};
-	private BufferedImage[] lemonFrames = {sprites.getSprite(1, 1)};
-	private BufferedImage[] watermelonFrames = {sprites.getSprite(2, 1)};
-	private BufferedImage[] bananaFrames = {sprites.getSprite(0, 2)};
-	private BufferedImage[] blueberryFrames = {sprites.getSprite(1, 2)};
-	private BufferedImage[] appleFrames = {sprites.getSprite(2, 2)};
-	
-	private Animation[] animations = {
-			new Animation(pearFrames, 250),
-			new Animation(strawberryFrames, 250),
-			new Animation(orangeFrames, 250),
-			new Animation(cherryFrames, 250),
-			new Animation(lemonFrames, 250),
-			new Animation(watermelonFrames, 250),
-			new Animation(bananaFrames, 250),
-			new Animation(blueberryFrames, 250),
-			new Animation(appleFrames, 250)	
+	private BufferedImage[] fruits = {
+			sprites.getSprite(0, 0), //Pear
+			sprites.getSprite(1, 0), //Strawberry
+			sprites.getSprite(2, 0), //Orange
+			sprites.getSprite(0, 1), //Cherry
+			sprites.getSprite(1, 1), //Lemon
+			sprites.getSprite(2, 1), //Water melon
+			sprites.getSprite(0, 2), //Banana
+			sprites.getSprite(1, 2), //Blueberry
+			sprites.getSprite(2, 2) //Apple
 	};
 	
-	private Animation animation;
+	private BufferedImage fruit;
 	
 	/**
 	 * 
@@ -54,7 +44,7 @@ public class Food {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d){
-		g2d.drawImage(animation.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), null);
+		g2d.drawImage(fruit, x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), null);
 	}
 	
 	/**
@@ -63,7 +53,7 @@ public class Food {
 	public void regen(){
 		x = random.nextInt(Grid.WIDTH);
 		y = random.nextInt(Grid.HEIGHT);
-		animation = animations[random.nextInt(animations.length)];
+		fruit = fruits[random.nextInt(fruits.length)];
 	}
 	
 	/**
