@@ -74,19 +74,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	/**
 	 * This method renders to the double buffered image
 	 */
-	public void render(){
-		//Clear screen
-		g2d.setColor(Color.BLACK);
-		g2d.fillRect(0, 0, WIDTH, HEIGHT);
+	public void render(){		
+		//Render the grid
+		grid.render(g2d);
 		
 		//Render the debug menu
 		if(debug){
 			g2d.setColor(Color.WHITE);
-			g2d.drawString("fps:" + FPS, 5, 15);
+			g2d.drawString("Debug Menu", 5, 15);
+			g2d.drawString("fps:" + FPS, 5, 35);
 		}
-		
-		//Render the grid
-		grid.render(g2d);
 	}
 	
 	/**

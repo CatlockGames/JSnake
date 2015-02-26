@@ -30,7 +30,7 @@ public class Segment {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d){
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.GREEN);
 		g2d.fillRect(x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), GamePanel.WIDTH / Grid.WIDTH, GamePanel.HEIGHT / Grid.HEIGHT);
 	}
 	

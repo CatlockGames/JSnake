@@ -3,7 +3,12 @@
  */
 package snake;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * @author Aaron
@@ -15,22 +20,28 @@ public class Grid {
 	public static final int HEIGHT = 32;
 	
 	private Snake snake = new Snake();
-	
 	private Food food = new Food();
 	
 	private int score;
+	
+	private BufferedImage background;
 
 	/**
 	 * 
 	 */
 	public Grid() {
+		try {
+			background = ImageIO.read(this.getClass().getResource("/background.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * 
 	 */
 	public void init(){
-		//initialize snake
+		//Initialize snake
 		snake.init();
 	}
 	
@@ -38,11 +49,11 @@ public class Grid {
 	 * 
 	 */
 	public void update(){
-		//update score
+		//Update score
 		score = snake.getSnake().size() - 3;
-		//update snake
+		//Update snake
 		snake.update();
-		//check for food collision
+		//Check for food collision
 		snake.munch(food);
 	}
 	
@@ -51,11 +62,14 @@ public class Grid {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d){
-		//render the snake
+		//Render the background
+		g2d.drawImage(background, 0, 0, null);
+		//Render the snake
 		snake.render(g2d);
-		//render the food
+		//Render the food
 		food.render(g2d);
 		
+		g2d.setColor(Color.WHITE);
 		g2d.drawString("Score: " + score, 580, 15);
 	}
 	
