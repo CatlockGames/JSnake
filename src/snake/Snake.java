@@ -125,5 +125,13 @@ public class Snake {
 			food.regen();
 		}
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Segment> getSnake() {
+		return snake;
+	}
 
 }
