@@ -27,6 +27,10 @@ public class Snake {
 	private long timeSinceLastMove = System.currentTimeMillis();
 	private long timeInterval = 50;
 	
+	//Sounds
+	private Sound eat = new Sound("/sounds/eat.wav");
+	private Sound death = new Sound("/sounds/death.wav");
+	
 	private boolean headDirectionRequested = false;
 	private int requestedHeadDirection;
 	
@@ -180,6 +184,7 @@ public class Snake {
 	 */
 	public void munch(Food food){
 		if(food.getX() == snake.get(0).getX() && food.getY() == snake.get(0).getY()){
+			eat.play();
 			addSegment(3);
 			food.regen();
 			
@@ -204,6 +209,7 @@ public class Snake {
 	 * 
 	 */
 	public void gameOver() {
+		death.play();
 		JOptionPane.showMessageDialog(null, "Your Score: " + Grid.SCORE);
 		System.exit(0);
 	}
