@@ -21,8 +21,9 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	//Dimensions
-	public static final int WIDTH = 640;
-	public static final int HEIGHT = 512;
+	public static double SCALE;
+	public static int WIDTH = 640;
+	public static int HEIGHT = 512;
 		
 	//Properties
 	public static final String TITLE = "Snake";
@@ -46,6 +47,21 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	 * 
 	 */
 	public GamePanel() {
+		//Calculate scaling
+		/*
+		if(Math.abs(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 16.0f / 9.0f) / (16.0f / 9.0f) < 0.0005f){
+			System.out.println("16 / 9");
+			SCALE = 1.0f;
+		} else if(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() - (16.0f / 9.0f) / (16.0f / 9.0f) > 0.0005f){
+			System.out.println("Above");
+		} else if(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() - (16.0f / 9.0f) / (16.0f / 9.0f) < -0.0005f){
+			System.out.println("Below");
+		}
+		*/
+		SCALE = 1;
+		//Scales the width and height
+		WIDTH *= SCALE;
+		HEIGHT *= SCALE;
 		//Sets JPanel size
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(true);

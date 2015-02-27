@@ -55,8 +55,8 @@ public class Poop {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d) {
-		g2d.drawImage(poop.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), null);
-		g2d.drawImage(fly.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), null);
+		g2d.drawImage(poop.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), (int) (poop.getSprite().getWidth() * GamePanel.SCALE), (int) (poop.getSprite().getHeight() * GamePanel.SCALE), null);
+		g2d.drawImage(fly.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), (int) (fly.getSprite().getWidth() * GamePanel.SCALE), (int) (fly.getSprite().getHeight() * GamePanel.SCALE), null);
 	}
 	
 	/**
