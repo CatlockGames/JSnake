@@ -24,6 +24,7 @@ public class Sound {
 	 */
 	public Sound(String fileName) {
 		this.fileName = fileName;
+		System.out.println("loaded");
 		loadSound();
 	}
 	
@@ -31,12 +32,9 @@ public class Sound {
 	 * This method plays the sound
 	 */
 	public void play(){
-		if(clip.getFramePosition() == clip.getFrameLength()){
+		if(clip.isRunning()){
 			clip.stop();
-			clip.close();
 		}
-		
-		loadSound();
 		clip.setFramePosition(0);
 		clip.start();
 	}
@@ -45,7 +43,9 @@ public class Sound {
 	 * This method loops the sound
 	 */
 	public void loop(){
-		loadSound();
+		if(clip.isRunning()){
+			clip.stop();
+		}
 		clip.setFramePosition(0);
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
@@ -55,13 +55,6 @@ public class Sound {
 	 */
 	public void stop(){
 		clip.stop();
-	}
-	
-	/**
-	 * This method closes the sound and releases the resource from memory
-	 */
-	public void close(){
-		clip.close();
 	}
 	
 	/**
