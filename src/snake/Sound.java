@@ -34,7 +34,6 @@ public class Sound {
 		if(clip.getFramePosition() == clip.getFrameLength()){
 			clip.stop();
 			clip.close();
-			System.out.println("Clip closed");
 		}
 		
 		loadSound();
