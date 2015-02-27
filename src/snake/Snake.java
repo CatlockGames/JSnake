@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author Aaron
  * @author Ryan
@@ -77,7 +79,7 @@ public class Snake {
 		//Check poop collision
 		for(int i = 0; i < poops.size(); i++){
 			if(snake.get(0).getX() == poops.get(i).getX() && snake.get(0).getY() == poops.get(i).getY()){
-				System.exit(0);
+				gameOver();
 			}
 		}
 		//Update poop
@@ -108,13 +110,13 @@ public class Snake {
 			}
 			//Checks collision witb wall
 			if(snake.get(0).getX() < 0 || snake.get(0).getX() >= Grid.WIDTH || snake.get(0).getY() < 0 || snake.get(0).getY() >= Grid.HEIGHT){
-				System.exit(0);
+				gameOver();
 			}
 			//Checks collision with segments
 			if(snake.size() > 4){
 				for(int i = 4; i < snake.size(); i++){
 					if(snake.get(0).getX() == snake.get(i).getX() && snake.get(0).getY() == snake.get(i).getY()){
-						System.exit(0);
+						gameOver();
 					}
 				}
 			}
@@ -196,6 +198,14 @@ public class Snake {
 	 */
 	public ArrayList<Segment> getSnake() {
 		return snake;
+	}
+	
+	/**
+	 * 
+	 */
+	public void gameOver() {
+		JOptionPane.showMessageDialog(null, "Your Score: " + Grid.SCORE);
+		System.exit(0);
 	}
 
 }

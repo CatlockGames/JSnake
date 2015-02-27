@@ -19,7 +19,7 @@ public class Grid {
 	private Snake snake = new Snake();
 	private Food food = new Food();
 	
-	private int score;
+	public static int SCORE;
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class Grid {
 	 */
 	public void update(){
 		//Update score
-		score = snake.getSnake().size() - 3;
+		SCORE = snake.getSnake().size() - 3;
 		//Update snake
 		snake.update();
 		//Check for food collision
@@ -61,7 +61,7 @@ public class Grid {
 		food.render(g2d);
 		
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Score: " + score, 580, 15);
+		g2d.drawString("Score: " + SCORE, 580, 15);
 	}
 	
 	/**
