@@ -26,7 +26,7 @@ public class Poop {
 			sprites.getSprite(2, 1),
 			sprites.getSprite(1, 1)
 	};
-	private Animation poop = new Animation(poops, 4000);
+	private Animation poop = new Animation(poops, 10000);
 	private Animation fly = new Animation(flies, 25);
 	
 	/**

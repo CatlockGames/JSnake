@@ -192,7 +192,7 @@ public class Snake {
 				poops.add(new Poop(snake.get(snake.size() - 1).getX(), snake.get(snake.size() - 1).getY()));
 				chanceToPoop = 0;
 			}else{
-				chanceToPoop += 25;
+				chanceToPoop += 50;
 			}
 		}
 	}
