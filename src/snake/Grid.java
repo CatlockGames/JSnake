@@ -18,6 +18,7 @@ public class Grid {
 	
 	private Snake snake = new Snake();
 	private Food food = new Food();
+	private Hunter hunter = new Hunter();
 	
 	public static int SCORE;
 
@@ -39,6 +40,7 @@ public class Grid {
 	 * 
 	 */
 	public void update(){
+		hunter.update();
 		//Update score
 		SCORE = snake.getSnake().size() - 3;
 		//Update snake
@@ -62,6 +64,7 @@ public class Grid {
 		
 		g2d.setColor(Color.WHITE);
 		g2d.drawString("Score: " + SCORE, 580, 15);
+		hunter.render(g2d);
 	}
 	
 	/**
