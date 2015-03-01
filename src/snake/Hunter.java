@@ -19,7 +19,22 @@ public class Hunter {
 			sprites.getSprite(0, 0),
 			sprites.getSprite(1, 0),
 			sprites.getSprite(0, 0),
-			sprites.getSprite(2, 0)
+			sprites.getSprite(2, 0),
+			
+			sprites.getSprite(0, 1),
+			sprites.getSprite(1, 1),
+			sprites.getSprite(0, 1),
+			sprites.getSprite(2, 1),
+			
+			sprites.getSprite(3, 0),
+			sprites.getSprite(4, 0),
+			sprites.getSprite(3, 0),
+			sprites.getSprite(5, 0),
+			
+			sprites.getSprite(3, 1),
+			sprites.getSprite(4, 1),
+			sprites.getSprite(3, 1),
+			sprites.getSprite(5, 1)
 	};
 	private Animation hunter = new Animation (hunters, 250);
 	
