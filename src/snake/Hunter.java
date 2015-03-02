@@ -14,6 +14,7 @@ public class Hunter {
 	private int x = 1;
 	private int y = 1;
 	
+	/*
 	private Sprite sprites = new Sprite("/images/hunter.png", 16, 48);
 	private BufferedImage[] hunters = {
 			sprites.getSprite(0, 0),
@@ -37,19 +38,20 @@ public class Hunter {
 			sprites.getSprite(5, 1)
 	};
 	private Animation hunter = new Animation (hunters, 250);
+	*/
 	
 	/**
 	 * 
 	 */
 	public Hunter() {
-		hunter.loop();
+		//hunter.loop();
 	}
 	
 	/**
 	 * 
 	 */
 	public void update() {
-		hunter.update();
+		//hunter.update();
 	}
 	
 	/**
@@ -57,7 +59,7 @@ public class Hunter {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d) {
-		g2d.drawImage(hunter.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), (int) (hunter.getSprite().getWidth() * GamePanel.SCALE), (int) (hunter.getSprite().getHeight() * GamePanel.SCALE), null);
+		//g2d.drawImage(hunter.getSprite(), x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), (int) (hunter.getSprite().getWidth() * GamePanel.SCALE), (int) (hunter.getSprite().getHeight() * GamePanel.SCALE), null);
 	}
 
 }

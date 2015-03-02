@@ -24,7 +24,6 @@ public class Sound {
 	 */
 	public Sound(String fileName) {
 		this.fileName = fileName;
-		System.out.println("loaded");
 		loadSound();
 	}
 	
