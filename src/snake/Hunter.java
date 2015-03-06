@@ -4,15 +4,15 @@
 package snake;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 /**
+ * @author Aaron
  * @author Ryan
  *
  */
 public class Hunter {
-	private int x = 1;
-	private int y = 1;
+	//private int x = 1;
+	//private int y = 1;
 	
 	/*
 	private Sprite sprites = new Sprite("/images/hunter.png", 16, 48);

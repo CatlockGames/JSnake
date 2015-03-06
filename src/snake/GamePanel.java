@@ -101,8 +101,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			g2d.drawString("fps:" + FPS, 5, 35);
 			g2d.drawString("Resolution:" + screenWidth + "x" + screenHeight, 5, 50);
 			g2d.drawString("Window Size:" + WIDTH + "x" + HEIGHT + "," + SCALE, 5, 65);
-			g2d.drawString("Head Direction:" + grid.getSnake().getSnake().get(0).getDirection(), 5, 80);
-			g2d.drawString("Head Position:" + grid.getSnake().getSnake().get(0).getX() + "(" + grid.getSnake().getSnake().get(0).getX() * (WIDTH / Grid.WIDTH) + ")" + "," + grid.getSnake().getSnake().get(0).getY() + "(" + grid.getSnake().getSnake().get(0).getY() * (HEIGHT / Grid.HEIGHT) + ")", 5, 95);
+			g2d.drawString("Head Direction:" + grid.getSnake().getSegments().get(0).getDirection(), 5, 80);
+			g2d.drawString("Head Position:" + grid.getSnake().getSegments().get(0).getX() + "(" + grid.getSnake().getSegments().get(0).getX() * (WIDTH / Grid.WIDTH) + ")" + "," + grid.getSnake().getSegments().get(0).getY() + "(" + grid.getSnake().getSegments().get(0).getY() * (HEIGHT / Grid.HEIGHT) + ")", 5, 95);
 		}
 	}
 	

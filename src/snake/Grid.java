@@ -5,6 +5,7 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 /**
  * @author Aaron
@@ -20,6 +21,8 @@ public class Grid {
 	private Food food = new Food();
 	private Hunter hunter = new Hunter();
 	
+	private Random random = new Random();
+	
 	public static int SCORE;
 
 	/**
@@ -34,6 +37,7 @@ public class Grid {
 	public void init(){
 		//Initialize snake
 		snake.init();
+		food.regen(random.nextInt(WIDTH), random.nextInt(HEIGHT));
 	}
 	
 	/**
@@ -42,11 +46,45 @@ public class Grid {
 	public void update(){
 		hunter.update();
 		//Update score
-		SCORE = snake.getSnake().size() - 3;
+		SCORE = snake.getSegments().size() - 3;
 		//Update snake
 		snake.update();
 		//Check for food collision
-		snake.munch(food);
+		if(snake.munch(food)){
+			//If collision detected regenerate a new food
+			int newX;
+			int newY;
+			boolean onSegment;
+			boolean onPoop;
+			while(true){
+				newX = random.nextInt(WIDTH);
+				newY = random.nextInt(HEIGHT);
+				onSegment = false;
+				onPoop = false;
+				//Checks if the food is on a segment
+				for(int i = 0; i < snake.getSegments().size(); i++){
+					if(newX == snake.getSegments().get(i).getX() && newY == snake.getSegments().get(i).getY()){
+						onSegment = true;
+						break;
+					}
+				}
+				//Redundant to check poop if on segment
+				if(!onSegment){
+					//Checks if the food is on a poop
+					for(int i = 0; i < snake.getPoops().size(); i++){
+						if(newX == snake.getPoops().get(i).getX() && newY == snake.getPoops().get(i).getY()){
+							onPoop = true;
+							break;
+						}
+					}
+				}
+				//If the new x and y are not on a segment or poop then regenerate a new food
+				if(!onSegment && !onPoop){
+					food.regen(newX, newY);
+					break;
+				}
+			}
+		}
 	}
 	
 	/**

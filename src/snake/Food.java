@@ -37,7 +37,6 @@ public class Food {
 	 * 
 	 */
 	public Food() {
-		regen();
 	}
 	
 	/**
@@ -51,9 +50,9 @@ public class Food {
 	/**
 	 * This method regenerates a new random food
 	 */
-	public void regen(){
-		x = random.nextInt(Grid.WIDTH);
-		y = random.nextInt(Grid.HEIGHT);
+	public void regen(int x, int y){
+		this.x = x;
+		this.y = y;
 		fruit = fruits[random.nextInt(fruits.length)];
 	}
 	

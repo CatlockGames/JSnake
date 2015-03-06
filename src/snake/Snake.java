@@ -178,15 +178,12 @@ public class Snake {
 		}
 	}
 	
-	/**
-	 * This method detects whether the snake can "munch" a given food
-	 * @param food
-	 */
-	public void munch(Food food){
+	
+	public boolean munch(Food food){
+		boolean canEat = false;
 		if(food.getX() == snake.get(0).getX() && food.getY() == snake.get(0).getY()){
 			eat.play();
 			addSegment(3);
-			food.regen();
 			
 			if(random.nextInt(99) + 1 <= chanceToPoop){
 				poops.add(new Poop(snake.get(snake.size() - 1).getX(), snake.get(snake.size() - 1).getY()));
@@ -194,15 +191,27 @@ public class Snake {
 			}else{
 				chanceToPoop += 50;
 			}
+			
+			canEat = true;
 		}
+		
+		return canEat;
 	}
 	
 	/**
-	 * 
+	 * This method gets the current segments of the snake
 	 * @return
 	 */
-	public ArrayList<Segment> getSnake() {
+	public ArrayList<Segment> getSegments() {
 		return snake;
+	}
+	
+	/**
+	 * This method gets the current poops of the snake
+	 * @return
+	 */
+	public ArrayList<Poop> getPoops(){
+		return poops;
 	}
 	
 	/**
