@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * @author Aaron
  * @author Ryan
+ * @author Dylan
  *
  */
 public class Snake {

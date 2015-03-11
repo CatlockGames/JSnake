@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 /**
  * @author Aaron
  * @author Ryan
+ * @author Dylan
  *
  */
 public class Sprite {

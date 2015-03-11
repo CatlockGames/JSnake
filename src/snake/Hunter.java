@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 /**
  * @author Aaron
  * @author Ryan
+ * @author Dylan
  *
  */
 public class Hunter {

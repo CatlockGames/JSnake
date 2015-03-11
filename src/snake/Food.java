@@ -10,6 +10,7 @@ import java.util.Random;
 /**
  * @author Aaron
  * @author Ryan
+ * @author Dylan
  *
  */
 public class Food {

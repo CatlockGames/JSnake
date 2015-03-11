@@ -13,6 +13,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * @author Aaron
+ * @author Ryan
+ * @author Dylan
  *
  */
 public class Sound {
