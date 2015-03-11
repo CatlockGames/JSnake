@@ -101,7 +101,7 @@ public class Grid {
 		food.render(g2d);
 		
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Score: " + SCORE, 580, 15);
+		g2d.drawString("Score: " + SCORE, GamePanel.WIDTH / 2, GamePanel.FONT.getSize());
 		hunter.render(g2d);
 	}
 	

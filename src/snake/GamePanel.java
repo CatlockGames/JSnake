@@ -5,12 +5,16 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
@@ -30,12 +34,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		
 	//Properties
 	public static final String TITLE = "Snake";
-	public static final String VERSION = "3.1.1";
+	public static final String VERSION = "3.1.2";
 	private boolean debug = false;
 		
 	//Image
 	private BufferedImage image;
 	private Graphics2D g2d;
+	
+	public static Font FONT;
 	
 	//Thread
 	private Thread thread;
@@ -75,6 +81,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		g2d = (Graphics2D) image.getGraphics();
 		running = true;
 		
+		try {
+			FONT = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/fonts/Bitwise.ttf")).deriveFont(Font.PLAIN, (float) (16f * SCALE));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(FONT);
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		g2d.setFont(FONT);
+		
 		//Initialize grid
 		grid.init();
 	}
@@ -97,12 +114,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		//Render the debug menu
 		if(debug){
 			g2d.setColor(Color.WHITE);
-			g2d.drawString("Debug Menu", 5, 15);
-			g2d.drawString("fps:" + FPS, 5, 35);
-			g2d.drawString("Resolution:" + screenWidth + "x" + screenHeight, 5, 50);
-			g2d.drawString("Window Size:" + WIDTH + "x" + HEIGHT + "," + SCALE, 5, 65);
-			g2d.drawString("Head Direction:" + grid.getSnake().getSegments().get(0).getDirection(), 5, 80);
-			g2d.drawString("Head Position:" + grid.getSnake().getSegments().get(0).getX() + "(" + grid.getSnake().getSegments().get(0).getX() * (WIDTH / Grid.WIDTH) + ")" + "," + grid.getSnake().getSegments().get(0).getY() + "(" + grid.getSnake().getSegments().get(0).getY() * (HEIGHT / Grid.HEIGHT) + ")", 5, 95);
+			g2d.drawString("Debug Menu", (int) (5 * SCALE), FONT.getSize() * 1);
+			g2d.drawString("fps:" + FPS, (int) (5 * SCALE), FONT.getSize() * 2);
+			g2d.drawString("Resolution:" + screenWidth + "x" + screenHeight, (int) (5 * SCALE), FONT.getSize() * 3);
+			g2d.drawString("Window Size:" + WIDTH + "x" + HEIGHT, (int) (5 * SCALE), FONT.getSize() * 4);
+			g2d.drawString("Scale:" + SCALE, (int) (5 * SCALE), FONT.getSize() * 5);
+			g2d.drawString("Head Direction:" + grid.getSnake().getSegments().get(0).getDirection(), (int) (5 * SCALE), FONT.getSize() * 6);
+			g2d.drawString("Head Position:" + grid.getSnake().getSegments().get(0).getX() + "(" + grid.getSnake().getSegments().get(0).getX() * (WIDTH / Grid.WIDTH) + ")" + "," + grid.getSnake().getSegments().get(0).getY() + "(" + grid.getSnake().getSegments().get(0).getY() * (HEIGHT / Grid.HEIGHT) + ")", (int) (5 * SCALE), FONT.getSize() * 7);
 		}
 	}
 	
