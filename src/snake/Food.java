@@ -45,7 +45,7 @@ public class Food {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d){
-		g2d.drawImage(fruit, x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), (int) (fruit.getWidth() * GamePanel.SCALE), (int) (fruit.getHeight() * GamePanel.SCALE), null);
+		g2d.drawImage(fruit, x * (GamePanel.WIDTH / LevelState.WIDTH), y * (GamePanel.HEIGHT / LevelState.HEIGHT), (int) (fruit.getWidth() * GamePanel.SCALE), (int) (fruit.getHeight() * GamePanel.SCALE), null);
 	}
 	
 	/**

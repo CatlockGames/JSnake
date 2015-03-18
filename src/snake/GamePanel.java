@@ -3,18 +3,13 @@
  */
 package snake;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.JPanel;
 
@@ -27,47 +22,48 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	//Dimensions
-	private double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public static final double SCREENWIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	public static final double SCREENHEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static int WIDTH = 640;
 	public static int HEIGHT = 512;
 	public static double SCALE;
 		
 	//Properties
 	public static final String TITLE = "Snake";
-	public static final String VERSION = "3.1.2";
-	private boolean debug = false;
+	public static final String VERSION = "4.0.0";
 		
 	//Image
 	private BufferedImage image;
 	private Graphics2D g2d;
 	
-	public static Font FONT;
-	
 	//Thread
 	private Thread thread;
 	private boolean running;
 	private int TargetFPS = 60;	
-	private int FPS;
+	public static int FPS;
 	private long targetTime = 1000 / TargetFPS;
 	
-	private Grid grid = new Grid();
+	private GameStateManager gameStateManager;
 
 	/**
 	 * 
 	 */
 	public GamePanel() {
 		//Calculate scaling
-		if(Math.abs(screenWidth / screenHeight - 16.0f / 9.0f) / (16.0f / 9.0f) < 0.0005f){
-			SCALE = ((int) (screenWidth / 1360 / 0.25)) * 0.25;
-		} else if(screenWidth / screenHeight - (16.0f / 9.0f) / (16.0f / 9.0f) > 0.0005f){
-			SCALE = ((int) (screenHeight / 1360 / 0.25)) * 0.25;
-		} else if(screenWidth / screenHeight - (16.0f / 9.0f) / (16.0f / 9.0f) < -0.0005f){
-			SCALE = ((int) (screenWidth / 765 / 0.25)) * 0.25;
+		if(Math.abs(SCREENWIDTH / SCREENHEIGHT - 16.0f / 9.0f) / (16.0f / 9.0f) < 0.0005f){
+			SCALE = ((int) (SCREENWIDTH / 1360 / 0.25)) * 0.25;
+		} else if(SCREENWIDTH / SCREENHEIGHT - (16.0f / 9.0f) / (16.0f / 9.0f) > 0.0005f){
+			SCALE = ((int) (SCREENHEIGHT / 1360 / 0.25)) * 0.25;
+		} else if(SCREENWIDTH / SCREENHEIGHT - (16.0f / 9.0f) / (16.0f / 9.0f) < -0.0005f){
+			SCALE = ((int) (SCREENWIDTH / 765 / 0.25)) * 0.25;
 		}
 		//Scales the width and height
 		WIDTH *= SCALE;
 		HEIGHT *= SCALE;
+		
+		//Created after SCALE is set
+		gameStateManager = new GameStateManager();
+		
 		//Sets JPanel size
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(true);
@@ -81,48 +77,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) image.getGraphics();
 		running = true;
-		
-		try {
-			FONT = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/fonts/Bitwise.ttf")).deriveFont(Font.PLAIN, (float) (16f * SCALE));
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(FONT);
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		g2d.setFont(FONT);
-		
-		//Initialize grid
-		grid.init();
 	}
 	
 	/**
 	 * 
 	 */
 	public void update(){
-		//Update the grid
-		grid.update();
+		//Update the current game state
+		gameStateManager.update();
 	}
 	
 	/**
 	 * This method renders to the double buffered image
 	 */
 	public void render(){		
-		//Render the grid
-		grid.render(g2d);
-		
-		//Render the debug menu
-		if(debug){
-			g2d.setColor(Color.WHITE);
-			g2d.drawString("Debug Menu", (int) (5 * SCALE), FONT.getSize() * 1);
-			g2d.drawString("fps:" + FPS, (int) (5 * SCALE), FONT.getSize() * 2);
-			g2d.drawString("Resolution:" + screenWidth + "x" + screenHeight, (int) (5 * SCALE), FONT.getSize() * 3);
-			g2d.drawString("Window Size:" + WIDTH + "x" + HEIGHT, (int) (5 * SCALE), FONT.getSize() * 4);
-			g2d.drawString("Scale:" + SCALE, (int) (5 * SCALE), FONT.getSize() * 5);
-			g2d.drawString("Head Direction:" + grid.getSnake().getSegments().get(0).getDirection(), (int) (5 * SCALE), FONT.getSize() * 6);
-			g2d.drawString("Head Position:" + grid.getSnake().getSegments().get(0).getX() + "(" + grid.getSnake().getSegments().get(0).getX() * (WIDTH / Grid.WIDTH) + ")" + "," + grid.getSnake().getSegments().get(0).getY() + "(" + grid.getSnake().getSegments().get(0).getY() * (HEIGHT / Grid.HEIGHT) + ")", (int) (5 * SCALE), FONT.getSize() * 7);
-		}
+		//Render the current game state
+		gameStateManager.render(g2d);
 	}
 	
 	/**
@@ -182,38 +152,21 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		//Debugging Menu
-		if(e.getKeyCode() == KeyEvent.VK_F3){
-			if(debug){
-				debug = false;
-			} else{
-				debug = true;
-			}
-		}
 		//Quit
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
 			System.exit(0);
 		}
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-			grid.getSnake().setHeadDirectionRequest(0);
-		}
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-			grid.getSnake().setHeadDirectionRequest(1);
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-			grid.getSnake().setHeadDirectionRequest(2);
-		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-			grid.getSnake().setHeadDirectionRequest(3);
-		}
+		gameStateManager.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		gameStateManager.keyReleased(e);
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		gameStateManager.keyTyped(e);
 	}
 
 }

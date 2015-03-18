@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 /**
  * @author Aaron
  * @author Ryan
@@ -21,19 +19,20 @@ public class Snake {
 	private ArrayList<Segment> snake = new ArrayList<Segment>();
 	
 	private ArrayList<Poop> poops = new ArrayList<Poop>();
-	private int chanceToPoop = 0;
+	private int chanceToPoop;
 	private Random random = new Random();
 	
 	//Timing
-	private long timeSinceLastMove = System.currentTimeMillis();
+	private long timeSinceLastMove;
 	private long timeInterval = 50;
 	
 	//Sounds
 	private Sound eat = new Sound("/sounds/eat.wav");
 	private Sound death = new Sound("/sounds/death.wav");
 	
-	private boolean headDirectionRequested = false;
+	private boolean headDirectionRequested;
 	private int requestedHeadDirection;
+	private boolean alive;    
 	
 	//Sprites
 	private Sprite sprites = new Sprite("/images/snake.png", 16, 16);
@@ -72,7 +71,13 @@ public class Snake {
 	 * 
 	 */
 	public void init(){
-		//Adds the first segment (head)
+		chanceToPoop = 0;
+		timeSinceLastMove = System.currentTimeMillis();
+		headDirectionRequested = false;
+		alive = true;
+		//Creates the starting snake
+		snake.clear();
+		poops.clear();
 		snake.add(new Segment(20, 16, 0));
 		addSegment(2);
 	}
@@ -84,7 +89,7 @@ public class Snake {
 		//Check poop collision
 		for(int i = 0; i < poops.size(); i++){
 			if(snake.get(0).getX() == poops.get(i).getX() && snake.get(0).getY() == poops.get(i).getY()){
-				gameOver();
+				die();
 			}
 		}
 		//Update poop
@@ -114,14 +119,14 @@ public class Snake {
 				}
 			}
 			//Checks collision witb wall
-			if(snake.get(0).getX() < 0 || snake.get(0).getX() >= Grid.WIDTH || snake.get(0).getY() < 0 || snake.get(0).getY() >= Grid.HEIGHT){
-				gameOver();
+			if(snake.get(0).getX() < 0 || snake.get(0).getX() >= LevelState.WIDTH || snake.get(0).getY() < 0 || snake.get(0).getY() >= LevelState.HEIGHT){
+				die();
 			}
 			//Checks collision with segments
 			if(snake.size() > 4){
 				for(int i = 4; i < snake.size(); i++){
 					if(snake.get(0).getX() == snake.get(i).getX() && snake.get(0).getY() == snake.get(i).getY()){
-						gameOver();
+						die();
 					}
 				}
 			}
@@ -218,10 +223,17 @@ public class Snake {
 	/**
 	 * 
 	 */
-	public void gameOver() {
+	private void die() {
 		death.play();
-		JOptionPane.showMessageDialog(null, "Your Score: " + Grid.SCORE);
-		System.exit(0);
+		alive = false;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isAlive(){
+		return alive;
 	}
 
 }

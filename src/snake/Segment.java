@@ -38,7 +38,7 @@ public class Segment {
 	 * @param g2d
 	 */
 	public void render(Graphics2D g2d, BufferedImage image){
-		g2d.drawImage(image, x * (GamePanel.WIDTH / Grid.WIDTH), y * (GamePanel.HEIGHT / Grid.HEIGHT), (int) (image.getWidth() * GamePanel.SCALE), (int) (image.getHeight() * GamePanel.SCALE), null);
+		g2d.drawImage(image, x * (GamePanel.WIDTH / LevelState.WIDTH), y * (GamePanel.HEIGHT / LevelState.HEIGHT), (int) (image.getWidth() * GamePanel.SCALE), (int) (image.getHeight() * GamePanel.SCALE), null);
 	}
 	
 	/**
