@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		
 	//Properties
 	public static final String TITLE = "Snake";
-	public static final String VERSION = "4.0.0";
+	public static final String VERSION = "4.0.2";
 		
 	//Image
 	private BufferedImage image;
