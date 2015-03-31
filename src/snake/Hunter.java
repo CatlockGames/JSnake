@@ -66,6 +66,8 @@ public class Hunter {
 	 * 
 	 */
 	public Hunter() {
+		x = -(int) (animation.getSprite().getWidth() * GamePanel.SCALE * 4);
+		y = GamePanel.HEIGHT / 2 - (int) (animation.getSprite().getHeight() * GamePanel.SCALE);
 	}
 	
 	public void init(){

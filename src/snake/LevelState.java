@@ -36,6 +36,8 @@ public class LevelState extends GameState {
 	private Hunter hunter = new Hunter();
 
 	private Random random = new Random();
+	
+	private boolean hunterSpawned;
 
 	/**
 	 * 
@@ -58,8 +60,7 @@ public class LevelState extends GameState {
 		debug = false;
 		//Initialize snake
 		snake.init();
-		//Initialize hunter
-		hunter.init();
+		hunterSpawned = false;
 		//Generate the first food
 		food.regen(random.nextInt(WIDTH), random.nextInt(HEIGHT));
 	}
@@ -71,10 +72,16 @@ public class LevelState extends GameState {
 		}
 		//Update score
 		score = snake.getSegments().size() - 3;
+		if(score == 21 && !hunterSpawned){
+			hunter.init();
+			hunterSpawned = true;
+		}
 		//Update snake
 		snake.update();
 		//Update the hunter
-		hunter.update();
+		if(hunterSpawned){
+			hunter.update();
+		}
 		
 		//Check for hunter collision
 		snake.caught(hunter);
@@ -142,7 +149,9 @@ public class LevelState extends GameState {
 		//Render the food
 		food.render(g2d);
 		//Render the hunter
-		hunter.render(g2d);
+		if(hunterSpawned){
+			hunter.render(g2d);
+		}
 
 		//Render the score
 		g2d.setColor(Color.WHITE);
