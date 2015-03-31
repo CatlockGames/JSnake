@@ -184,7 +184,11 @@ public class Snake {
 		}
 	}
 	
-	
+	/**
+	 * This mehod checks wheter the snake can eat a fruit
+	 * @param food
+	 * @return
+	 */
 	public boolean munch(Food food){
 		boolean canEat = false;
 		if(food.getX() == snake.get(0).getX() && food.getY() == snake.get(0).getY()){
@@ -205,6 +209,36 @@ public class Snake {
 	}
 	
 	/**
+	 * This method detects if the snake becomes trapped
+	 * @param traps
+	 */
+	public void trapped(ArrayList<Trap> traps){
+		//Check for trap collision
+		for (int i = 0; i < traps.size(); i++) {
+			if (snake.get(0).getX() == traps.get(i).getX() && snake.get(0).getY() == traps.get(i).getY()) {
+				die();
+			}
+		}
+	}
+	
+	/**
+	 * This method detects if the hunter catches the snake
+	 * @param hunter
+	 */
+	public void caught(Hunter hunter){
+		//Check for hunter collision
+		if (snake.get(0).getX() == hunter.getX() && snake.get(0).getY() == hunter.getY()) {
+			die();
+		}
+		if (snake.get(0).getX() == hunter.getX() && snake.get(0).getY() == hunter.getY() - 1) {
+			die();
+		}
+		if (snake.get(0).getX() == hunter.getX() && snake.get(0).getY() == hunter.getY() + 1) {
+			die();
+		}
+	}
+	
+	/**
 	 * This method gets the current segments of the snake
 	 * @return
 	 */
@@ -221,7 +255,7 @@ public class Snake {
 	}
 	
 	/**
-	 * 
+	 * The snake died, o nose
 	 */
 	private void die() {
 		death.play();
@@ -229,7 +263,7 @@ public class Snake {
 	}
 	
 	/**
-	 * 
+	 * This method gets the current lively state of the snake
 	 * @return
 	 */
 	public boolean isAlive(){

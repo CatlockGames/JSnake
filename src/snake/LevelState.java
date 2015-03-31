@@ -33,7 +33,7 @@ public class LevelState extends GameState {
 
 	private Snake snake = new Snake();
 	private Food food = new Food();
-	//private Hunter hunter = new Hunter();
+	private Hunter hunter = new Hunter();
 
 	private Random random = new Random();
 
@@ -59,7 +59,8 @@ public class LevelState extends GameState {
 		//Initialize snake
 		snake.init();
 		//Initialize hunter
-		//hunter.init();
+		hunter.init();
+		//Generate the first food
 		food.regen(random.nextInt(WIDTH), random.nextInt(HEIGHT));
 	}
 
@@ -68,12 +69,18 @@ public class LevelState extends GameState {
 		if(!snake.isAlive()){
 			gameOver();
 		}
-		//Update the hunter
-		//hunter.update();
 		//Update score
 		score = snake.getSegments().size() - 3;
 		//Update snake
 		snake.update();
+		//Update the hunter
+		hunter.update();
+		
+		//Check for hunter collision
+		snake.caught(hunter);
+		//Check for trap collision
+		snake.trapped(hunter.getTraps());
+		
 		//Check for food collision
 		if(snake.munch(food)){
 			//If collision detected regenerate a new food
@@ -81,11 +88,13 @@ public class LevelState extends GameState {
 			int newY;
 			boolean onSegment;
 			boolean onPoop;
+			boolean onTrap;
 			while(true){
 				newX = random.nextInt(WIDTH);
 				newY = random.nextInt(HEIGHT);
 				onSegment = false;
 				onPoop = false;
+				onTrap = false;
 				//Checks if the food is on a segment
 				for(int i = 0; i < snake.getSegments().size(); i++){
 					if(newX == snake.getSegments().get(i).getX() && newY == snake.getSegments().get(i).getY()){
@@ -102,9 +111,20 @@ public class LevelState extends GameState {
 							break;
 						}
 					}
+					
+					//Redundant to check traps if on poop
+					if(!onPoop){
+						//Checks if the food is on a trap;
+						for(int i = 0; i < hunter.getTraps().size(); i++){
+							if(newX == hunter.getTraps().get(i).getX() && newY == hunter.getTraps().get(i).getY()){
+								onTrap = true;
+								break;
+							}
+						}
+					}
 				}
 				//If the new x and y are not on a segment or poop then regenerate a new food
-				if(!onSegment && !onPoop){
+				if(!onSegment && !onPoop && !onTrap){
 					food.regen(newX, newY);
 					break;
 				}
@@ -122,7 +142,7 @@ public class LevelState extends GameState {
 		//Render the food
 		food.render(g2d);
 		//Render the hunter
-		//hunter.render(g2d);
+		hunter.render(g2d);
 
 		//Render the score
 		g2d.setColor(Color.WHITE);
