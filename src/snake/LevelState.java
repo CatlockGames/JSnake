@@ -60,6 +60,8 @@ public class LevelState extends GameState {
 		debug = false;
 		//Initialize snake
 		snake.init();
+		//Initialize hunter
+		hunter.init();
 		hunterSpawned = false;
 		//Generate the first food
 		food.regen(random.nextInt(WIDTH), random.nextInt(HEIGHT));
